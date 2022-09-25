@@ -19,9 +19,6 @@ def extract(input_path : str | pathlib.PosixPath,
     cmd = ["ffmpeg", "-ss", f"{time_in}", "-i", f"{input_path}",
            "-to", f"{time_out}", f"{output_path}"]
 
-    for i in cmd:
-        print(i)
-
     subprocess.call(cmd)
 
     return str(output_path) if string_return else output_path
