@@ -59,8 +59,37 @@ def ndf_timecode_to_seconds_mmm_string(timecode, _frame_rate):
     return str(round(seconds,3))
 
 
+# 05:15:22.623489 style times to absolute float.
+def timecode_with_decimal_to_float(_time):
+    _time = _time.split(":")
+    if len(_time) == 4:
+        hours = _time[0]
+        minutes = _time[1]
+        seconds = _time[2]
+        remainder = _time[3]
+    if len(_time) == 3:
+        hours = _time[0]
+        minutes = _time[1]
+        seconds = _time[2]
+        remainder = 0
+    elif len(_time) == 2:
+        hours = "00"
+        minutes = _time[0]
+        seconds = _time[1]
+        remainder = 0
+    elif len(_time) == 1:
+        hours = "00"
+        minutes = "00"
+        seconds = _time[0]
+        remainder = 0
+    absolute_time_whole = float(hours) * 60 * 60 + float(minutes) * 60 + float(seconds)
+    absolute_time_remainder = float("." + f"{remainder}")
+    absolute_time = float(absolute_time_whole + absolute_time_remainder)
+    return absolute_time
+
+
 # Converts "1:15" style times to absolute number of seconds. 
-def time_to_absolute(_time, frame_rate=23.976):
+def timecode_to_absolute(_time, frame_rate=23.976):
     _time = _time.split(":")
     if len(_time) == 4:
         hours = _time[0]
