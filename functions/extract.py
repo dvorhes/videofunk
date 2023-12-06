@@ -3,10 +3,11 @@ from pathlib import Path
 import sys
 import subprocess
 
+# Extracts clip from video file at given time in/out in seconds.
 def extract(input_path : str | pathlib.PosixPath,
-                 time_in : int | float,
-                 time_out : int | float, 
-                 output_path : pathlib.PosixPath = None) -> str | pathlib.PosixPath:
+            time_in : int | float,
+            time_out : int | float, 
+            output_path : pathlib.PosixPath = None) -> str | pathlib.PosixPath:
 
     if isinstance(input_path, str):
         string_return = True

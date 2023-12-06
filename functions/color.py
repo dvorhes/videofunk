@@ -11,6 +11,7 @@ class Color:
             if color_value[0] == "#":
                 color_value = color_value.replace("#", "")
         self.hex = color_value
+        print("Color class init call", end=" ")
         self.rgb, self.hsv, self.hsb = self.explode_hex(self.hex)
         self.rgb_index = (self.rgb[0]/255, self.rgb[1]/255, self.rgb[2]/255)
         # Comlimentary
@@ -86,20 +87,26 @@ class Color:
 
     def explode_hex(self, _hex):
         r,g,b = _hex[0:2], _hex[2:4], _hex[4:]
+        print(f"r: {r}, g: {g}, b: {b}")
+
         r,g,b = (round(float.fromhex(r)), round(float.fromhex(g)), round(float.fromhex(b)))
         h,s,v = colorsys.rgb_to_hsv(r,g,b)
         _ah, _as, _ab = (round(h*360), round(s*100), round((v/255)*100))
         return (r,g,b), (h,s,v), (_ah, _as, _ab)
 
 
-    def hex_to_rgb1(self, _hex):
-        rgb, hsv, hsb = self.explode_hex(_hex)
-        return [rgb[0]/255, rgb[1]/255, rgb[2]/255]
+    # For premriere extend script: setColorValue()
+    def hex_to_adobe_argb(self, hex_value=None):
+        if not hex_value:
+            hex_value = self.hex
+        rgb, hsv, hsb = self.explode_hex(hex_value)
+        return [255, int(rgb[0]), int(rgb[1]), int(rgb[2])]
         
 
     def hue_shift(self, amount, hex_value=None):
         if not hex_value:
             hex_value = self.hex
+        print("hue shift call", end=" ")
         rgb, hsv, hsb = self.explode_hex(hex_value)
         h,s,b = hsb
         h = h + amount

@@ -3,12 +3,9 @@ import pickle
 import json
 import os
 import shutil
-# import general_app_functions as gaf
 import pathlib
 from pathlib import Path
 import sys
-
-
 
 
 def h264compress(input_path : pathlib.PosixPath,
@@ -33,6 +30,7 @@ def get_output_codec_cmd(reference_list):
     if reference_list[1] in ['wav', 'WAV']:
         cmd.extend(["-c:a", "pcm_s16be"])
     return cmd
+
 
 
 # Converts media file to google-speech-friendly WAV and puts it into the output directory.
@@ -183,23 +181,4 @@ def join_audio(audio1, audio2, fade_duration, working_dir, output_filename=None)
     subprocess.call(ff_cmd)
 
     return output_path
-
-
-
-def print_fn():
-    print("Hi")
-
-def sum_fn(a, b):
-    print(a + b)
-
-if __name__ == "__main__":
-    args = sys.argv
-    # args[0] = current file
-    # args[1] = function name
-    # args[2:] = function args : (*unpacked)
-    globals()[args[1]](*args[2:])
-
-
-# python demo.py print_fn
-# python demo.py sum_fn 5 8
 

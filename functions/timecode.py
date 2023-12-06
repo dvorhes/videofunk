@@ -1,3 +1,5 @@
+
+# Helper functions for dealing with timecode.
 def convert_seconds_to_timecode(_total_seconds, _frame_rate):
     frame_rate = _frame_rate
     total_seconds = int(_total_seconds)
